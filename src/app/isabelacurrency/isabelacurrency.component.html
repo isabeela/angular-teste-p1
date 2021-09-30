@@ -1,6 +1,30 @@
-<div>
-  <div *ngIf="walletService.currentResponse">
+<div class="box-bitcoin">
+  <div>
+    <div>
+      {{ walletService.currentResponse.time.update }}
+    </div>
+    <div>
+      Valor do bitcoin em dólares: $
+      <span [innerHTML]="walletService.currentResponse.bpi.USD.symbol"></span
+      >{{ walletService.currentResponse.bpi.USD.rate }}
+    </div>
+    <div>
+      Valor do bitcoin em reais: R$
+      <span [innerHTML]="walletService.currentResponse.bpi.BRL.symbol"></span
+      >{{ walletService.currentResponse.bpi.BRL.rate }}
+    </div>
 
-
-
+    <table style="border=1">
+      <tr>
+        <th>Data / hora</th>
+        <th>USD</th>
+        <th>BRL</th>
+      </tr>
+      <tr *ngFor="let response of this.walletService.updateList">
+        <td>{{ response.time.update }}</td>
+        <td>$ {{ response.bpi.USD.rate }}</td>
+        <td>R$ {{ response.bpi.BRL.rate }}</td>
+      </tr>
+    </table>
+  </div>
 </div>

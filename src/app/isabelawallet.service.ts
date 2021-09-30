@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 interface Response {
-  time: { update: String };
+  time: { update: string };
   bpi: {
     USD: {
       symbol: string;
@@ -10,11 +10,6 @@ interface Response {
       rate_float: number;
     };
     BRL: {
-      symbol: string;
-      rate: string;
-      rate_float: number;
-    };
-    EUR: {
       symbol: string;
       rate: string;
       rate_float: number;
@@ -28,7 +23,12 @@ export class IsabelawalletService {
   updateList: Array<Response> = [];
   public bitUp: boolean;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.update();
+    setInterval(() => {
+      this.update();
+    }, 60000);
+  }
 
   update() {
     this.http
@@ -50,7 +50,6 @@ export class IsabelawalletService {
             this.bitUp == false;
           }
         }
-
         this.currentResponse = data;
       });
   }
